@@ -8,7 +8,7 @@ makedocs(;
     authors="jyzhang <peakfind@126.com> and contributors",
     sitename="ClosedWaveguideDispersion.jl",
     format=Documenter.HTML(;
-        canonical="https://Jiayi Zhang.github.io/ClosedWaveguideDispersion.jl",
+        canonical="https://peakfind.github.io/ClosedWaveguideDispersion.jl",
         edit_link="main",
         assets=String[],
     ),
@@ -18,6 +18,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/Jiayi Zhang/ClosedWaveguideDispersion.jl",
+    repo="github.com/peakfind/ClosedWaveguideDispersion.jl",
     devbranch="main",
 )
