@@ -1,4 +1,4 @@
-# # Inhomogeneous case in 
+# # Inhomogeneous case
 
 using Ferrite: Lagrange, RefTriangle
 using ClosedWaveguideDispersion
