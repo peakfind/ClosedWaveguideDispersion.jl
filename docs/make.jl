@@ -23,7 +23,7 @@ output = joinpath(@__DIR__, "src")
 generate_examples(source, output)
 
 # Then call it
-generate_literate_markdown("examples", "docs/src/generated")
+generate_examples("examples", "docs/src/generated")
 
 makedocs(;
     modules=[ClosedWaveguideDispersion],
