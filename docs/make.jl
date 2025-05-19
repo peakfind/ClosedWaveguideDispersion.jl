@@ -22,9 +22,6 @@ source = joinpath(@__DIR__, "src", "literate_examples")
 output = joinpath(@__DIR__, "src")
 generate_examples(source, output)
 
-# Then call it
-generate_examples("examples", "docs/src/generated")
-
 makedocs(;
     modules=[ClosedWaveguideDispersion],
     authors="jyzhang <peakfind@126.com> and contributors",
