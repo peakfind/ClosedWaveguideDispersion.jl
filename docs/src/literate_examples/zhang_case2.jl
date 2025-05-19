@@ -2,7 +2,7 @@
 
 # ## Problem
 
-# This problem is the second example in [zhang2021](@ref) page .
+# This problem is the second example in [zhang2021](@cite) page .
 # + ``q(x_{1}, x_{2}) = 9`` in a disk with the center ``(0, 0.5)`` and radius ``0.3`` and ``q(x_{1}, x_{2}) = 1`` outside the disk.
 # + Neumann boundary condition on ``\partial \Omega``.
 
