@@ -1,4 +1,4 @@
-# # pa3.jl
+# # PA-Three
 
 using Ferrite: Lagrange, RefTriangle
 using ClosedWaveguideDispersion
