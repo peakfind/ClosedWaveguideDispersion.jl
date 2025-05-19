@@ -37,6 +37,7 @@ makedocs(;
         "Examples" => ["zhang_case2.md", "pa2.md", "pa3.md"],
         "API" => "api.md",
     ],
+    plugins = [bib],
 )
 
 deploydocs(;
