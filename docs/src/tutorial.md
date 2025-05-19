@@ -21,8 +21,8 @@ Moreover, we assume that ``q(x_{1}, x_{2}) \in L^{\infty}(\Omega)``.
 The wave propagation in the periodic closed waveguide is modeled by the following boundary value problem
 ```math
 \begin{align*}
-    \Delta u + k^{2}q(x_{1}, x_{2})u = f &\text{ in } \Omega, \\
-    \frac{\partial u}{\partial x_{2}} = 0 &\text{ on } \partial \Omega,
+    &\Delta u + k^{2}q(x_{1}, x_{2})u = f \text{ in } \Omega, \\
+    &\frac{\partial u}{\partial x_{2}} = 0 \text{ on } \partial \Omega,
 \end{align*}
 ```
 where ``f`` is a function in ``L^{2}(\Omega)`` with compact support, and ``k > 0`` is the real wavenumber.
@@ -36,9 +36,9 @@ The parameter ``\alpha`` is introduced by the Floquet-Bloch transform. And we al
 Transfering the dependence on ``\alpha`` from the function space to the PDE, we have the following boundary value problem
 ```math
 \begin{align*}
-\Delta v + 2i\alpha \partial_{1}v + (k^{2}q(x_{1}, x_{2}) - \alpha^{2}) v = 0 \text{ in } \Omega_{0}, \\
-\frac{\partial v}{\partial x_{2}} = 0 \text{ on } \partial \Omega_{0}, \\
-v \text{is periodic with respect to } x_{1}.
+&\Delta v + 2i\alpha \partial_{1}v + (k^{2}q(x_{1}, x_{2}) - \alpha^{2}) v = 0 \text{ in } \Omega_{0}, \\
+&\frac{\partial v}{\partial x_{2}} = 0 \text{ on } \partial \Omega_{0}, \\
+&v \text{ is periodic with respect to } x_{1}.
 \end{align*}
 ```
 

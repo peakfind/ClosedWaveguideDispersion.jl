@@ -80,7 +80,7 @@ end
 """
     setup_bdcs(dh::DofHandler; period=1.0)
 
-Impose the periodic boundary condition on the two vertical boundaries on the periodic cell
+Impose the periodic boundary condition on the two vertical boundaries on the periodic cell.
 """
 function setup_bdcs(dh::DofHandler; period=1.0)
     cst = ConstraintHandler(dh)

@@ -8,7 +8,7 @@ CurrentModule = ClosedWaveguideDispersion
 
 This problem in given as an example in [zhang2021](@cite).
 + The function ``q(x_{1}, x_{2}) = 1`` is a constant function.
-+ Neumann boundary condition on ``\parital \Omega``
++ Neumann boundary condition on ``\partial \Omega``
 
 ## Code
 
@@ -48,7 +48,7 @@ cv = setup_fevs(ip)
 dh = setup_dofs(grid, ip);
 ```
 In this example, the Neumann boundary condition is satisfied naturally. So we only need to impose the periodic boundary condition in [`setup_bdcs`](@ref).
-```math
+```example homo
 # Set the boundary conditions
 cst = setup_bdcs(dh, period=p)
 ```

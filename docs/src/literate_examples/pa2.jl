@@ -2,6 +2,12 @@
 
 # ## Problem
 
+# PA-Two is an example in [ehrhardt-sun-zheng2009](@cite) and satisfies the following conditions:
+# + a rectangular hole of size ``0.5 \times 0.5`` in the cell center;
+# + Neumann boundary condition on ``\partial \Omega``;
+# + homogeneous Dirichlet boundary condition at the hole boundary.
+
+
 # ## Code
 # For this example, we also need to load Gmsh and FerriteGmsh to generate the mesh
 using Gmsh
@@ -9,7 +15,7 @@ using Ferrite
 using FerriteGmsh
 using ClosedWaveguideDispersion
 
-# We need to customize our mesh and boundary conditions
+# We need to customize our mesh and boundary conditions.
 function my_grid(;lc=0.05, period=1.0, height=1.0, holewidth=0.5, holeheight=0.5)
     ## Initialize gmsh 
     gmsh.initialize()
@@ -70,6 +76,7 @@ function my_grid(;lc=0.05, period=1.0, height=1.0, holewidth=0.5, holeheight=0.5
     return grid
 end;
 
+# We still use homogeneous medium in the waveguide.
 function n(x)
     return 1.0
 end;
