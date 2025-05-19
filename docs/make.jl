@@ -1,7 +1,29 @@
 using ClosedWaveguideDispersion
-using Documenter
+using Documenter, DocumenterCitations
+using Literate
 
 DocMeta.setdocmeta!(ClosedWaveguideDispersion, :DocTestSetup, :(using ClosedWaveguideDispersion); recursive=true)
+
+# Add bib file
+bib = CitationBibliography(joinpath(@__DIR__, "src", "refs.bib"))
+
+# Generate examples by Literate.jl
+function generate_examples(source_dir, output_dir; exclude=[])
+    for file in readdir(source_dir)
+        if endswith(file, ".jl") && !(file in exclude)
+            input = joinpath(source_dir, file)
+            output = output_dir
+            Literate.markdown(input, output; documenter=true)
+        end
+    end
+end
+
+source = joinpath(@__DIR__, "src", "literate_examples")
+output = joinpath(@__DIR__, "src")
+generate_examples(source, output)
+
+# Then call it
+generate_literate_markdown("examples", "docs/src/generated")
 
 makedocs(;
     modules=[ClosedWaveguideDispersion],
@@ -15,7 +37,8 @@ makedocs(;
     pages=[
         "Home" => "index.md",
         "Tutorial" => ["tutorial.md", "homogeneous.md"],
-        "API" => "api.md"
+        "Examples" => ["zhang_case2.md", "pa2.md", "pa3.md"],
+        "API" => "api.md",
     ],
 )
 
