@@ -62,6 +62,15 @@ function setup_grid(;lc=0.05, period=1.0, height=1.0)
     return grid
 end
 
+"""
+    setup_fevs(ip)
+
+Set up the quadreture rule and CellValues (for the integral on domain). Here we only consider 2D problem.
+
+# Arguments
+
+- `ip`: the interpolation
+"""
 function setup_fevs(ip)
     qr = QuadratureRule{RefTriangle}(2)
     cv = CellValues(qr, ip)
@@ -69,6 +78,11 @@ function setup_fevs(ip)
     return cv
 end
 
+"""
+    setup_dofs(grid::Grid, ip)
+
+Define the DofHandler according to the mesh `grid` and the interpolation `ip`.
+"""
 function setup_dofs(grid::Grid, ip)
     dh = DofHandler(grid)
     add!(dh, :u, ip)
@@ -80,7 +94,12 @@ end
 """
     setup_bdcs(dh::DofHandler; period=1.0)
 
-Impose the periodic boundary condition on the two vertical boundaries on the periodic cell.
+Impose the periodic boundary condition in the horizontal direction.
+
+# Arguments
+
+- `dh`: DofHandler
+- `period`: the period of the closed waveguide in the horizontal direction.
 """
 function setup_bdcs(dh::DofHandler; period=1.0)
     cst = ConstraintHandler(dh)
@@ -95,6 +114,11 @@ function setup_bdcs(dh::DofHandler; period=1.0)
     return cst
 end
 
+"""
+    allocate_matries(dh::DofHandler, cst::ConstraintHandler)
+
+Create a sparsity pattern by DofHandler `dh` and ConstraintHandler `cst`.
+"""
 function allocate_matries(dh::DofHandler, cst::ConstraintHandler)
     sp = init_sparsity_pattern(dh)
     add_cell_entries!(sp, dh)
@@ -107,7 +131,9 @@ end
 """
     assemble_A(cv::CellValues, dh::DofHandler, A::SparseMatrixCSC, α::Float64)
 
-TBW
+Assemble the matrix ``\\mathbf{A}`` which is given by the sesquilinear form 
+
+``\\int \\nabla u \\cdot \\nabla \\bar{v} - 2i \\alpha \\partial_{1} u \\bar{v} + \\alpha^{2} u \\bar{v} dx.``
 """
 function assemble_A(cv::CellValues, dh::DofHandler, A::SparseMatrixCSC, α::Float64)
     # Preallocate the local matrix
@@ -154,7 +180,9 @@ end
 """
     assemble_B(cv::CellValues, dh::DofHandler, B::SparseMatrixCSC, n::Function)
 
-TBW
+Assemble the matrix ``\\mathbf{B}`` which is given by the sesquilinear form 
+
+``\\int n(x_{2}, x_{2}) u \\bar{v} dx.``
 """
 function assemble_B(cv::CellValues, dh::DofHandler, B::SparseMatrixCSC, n::Function)
     # Preallocate the local matrix

@@ -7,8 +7,6 @@ using SparseArrays
 using Arpack: eigs
 using CairoMakie
 
-# Write your package code here.
-
 include("fem.jl")
 export setup_grid, setup_fevs, setup_dofs, setup_bdcs
 export allocate_matries, assemble_A, assemble_B

@@ -1,7 +1,13 @@
 """
     plot_diagram(bz, μ;period=1.0, title="Dispersion Diagram", xlabel="Brillouin zone")
 
-TBW
+Plot the disperison diagram.
+
+# Arguments
+
+- `bz`: discrete Brillouin zone 
+- `μ`: eigenvalues with respect to ``\\alpha`` in `bz`
+- `period`: period of the closed waveguide in the horizontal direction
 """
 function plot_diagram(bz, μ;period=1.0, title="Dispersion Diagram", xlabel="Brillouin zone")
     fig = Figure()
