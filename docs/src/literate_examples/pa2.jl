@@ -97,6 +97,8 @@ function my_bdcs(dh::DofHandler; period=1.0)
     add!(cst, dbc)
     
     close!(cst)
+    
+    return cst
 end
 
 # Set parameters
