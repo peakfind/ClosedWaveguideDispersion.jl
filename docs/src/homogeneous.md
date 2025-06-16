@@ -6,9 +6,9 @@ CurrentModule = ClosedWaveguideDispersion
 
 ## Problem
 
-This problem in given as an example in [zhang2021](@cite).
+This problem in given as an example in [zhang2021](@cite). We conclude the assumptions in the below list:
 + The function ``q(x_{1}, x_{2}) = 1`` is a constant function.
-+ Neumann boundary condition on ``\partial \Omega``
++ Neumann boundary condition on ``\partial \Omega``.
 
 ## Code
 
