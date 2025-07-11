@@ -2,13 +2,13 @@
 CurrentModule = ClosedWaveguideDispersion
 ```
 
-# Homogeneous case with Neumann boundary condition
+# [Homogeneous case with Neumann boundary condition](@id tutorial-homogeneous-neumann)
 
 ## Problem
 
 This problem in given as an example in [zhang2021](@cite). We conclude the assumptions in the below list:
 + The function ``q(x_{1}, x_{2}) = 1`` is a constant function.
-+ Neumann boundary condition on ``\partial \Omega``.
++ homogeneous Neumann boundary condition on ``\partial \Omega``.
 
 ## Code
 
@@ -23,7 +23,9 @@ Since we consider the homogeneous waveguide, we need to define the refraction in
 function n(x)
    return 1.0 
 end;
-
+```
+Next, we specify the parameters related to the periodic cell and the discrete Brillouin zone.
+```@example homo
 # Period of the waveguide
 p = 1.0;
 # Height of the waveguide
@@ -36,7 +38,7 @@ We use [`setup_grid`](@ref) to generate mesh for the periodic cell with period `
 # Set up the grid 
 grid = setup_grid(lc=0.05, period=p, height=h)
 ```
-Then we need to define the interpolation, `CellValues` and `DofHandler` which are needed by Ferrite.jl.
+Then we need to define the interpolation, `CellValues` and `DofHandler` which are needed by Ferrite.jl. For more details about solving PDEs by Ferrite.jl, we refer to the [documentation for Ferrite.jl](https://ferrite-fem.github.io/Ferrite.jl/stable/).
 ```@example homo
 # Define the interpolation 
 ip = Lagrange{RefTriangle, 1}()

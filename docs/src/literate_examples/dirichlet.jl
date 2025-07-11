@@ -1,18 +1,26 @@
 # # Homogeneous case with Dirichelt boundary condition
 
 # ## Problem
-
-# We consider homogeneous case with Dirichlet boundary condition on the boundaries of the closed waveguide
+# 
+# We consider homogeneous case with Dirichlet boundary condition on the boundaries of the closed waveguide.
+# + The function ``q(x_{1}, x_{2}) = 1`` is a constant function.
+# + homogeneous Dirichlet boundary condition on ``\partial \Omega``.
 
 # ## Code 
-
+# 
 # We load the packages we need.
 using Ferrite
 using ClosedWaveguideDispersion
 
+# Since we consider the homogeneous waveguide just like [Tutorial](@ref tutorial-homogeneous-neumann), we also define the refractive index as a constant.
 function n(x)
     return 1.0 
 end
+
+# Similarly, here are the parameters related to the periodic cell and the discrete Brillouin zone.
+p = 1.0;
+h = 1.0;
+N = 100;
 
 # We need to implement a new function to impose the periodic boundary condition and the 
 # Dirichlet boundary condition.
@@ -34,10 +42,6 @@ function my_bdcs(dh::DofHandler; period=1.0)
     
     return cst 
 end
-
-p = 1.0;
-h = 1.0;
-N = 100;
 
 # Set up the grid.
 grid = setup_grid(lc=0.05, period=p, height=h)
@@ -62,3 +66,9 @@ bz = collect(range(-π/p, π/p, N))
 
 ## Plot the dispersion diagram
 plot_diagram(bz, μ, period=p)
+
+# ## Plain code 
+# 
+# ```julia
+# @__CODE__
+# ```
