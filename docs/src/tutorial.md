@@ -67,7 +67,7 @@ cell is ``(-p/2, p/2)`` and the Brillouin zone is ``(-\pi/p, \pi/p)``.
 
 For simplicity, we only present necessary notions for computation. For more theoretical details, we refer to [fliss-joly2016](@cite) and [photonic](@cite). The Floquet-Bloch transform is given by
 ```math
-(Tu)(x_{1}, x_{2}; \alpha) = \sum_{n \in \mathbb{Z}} u(x_{1} + 2\pi n, x_{2}) e^{i\alpha (x_{1} + 2\pi n)}.
+(Tu)(x_{1}, x_{2}; \alpha) = \sum_{n \in \mathbb{Z}} u(x_{1} + 2\pi n, x_{2}) e^{-i\alpha (x_{1} + 2\pi n)}.
 ```
 Actually, it is a partial Floquet-Bloch tranform which is only applied on ``x_{1}`` variable. The parameter ``\alpha`` is introduced by the Floquet-Bloch transform. And we always consider ``\alpha`` in the Brillouin zone ``(-\pi/p, \pi/p)``.
 
