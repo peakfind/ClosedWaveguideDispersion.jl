@@ -2,7 +2,7 @@
 
 # ## Problem
 
-# This problem is the second example in [zhang2021](@cite) page .
+# This problem is the second example in [zhang2021; Section 3.1](@cite).
 # + ``q(x_{1}, x_{2}) = 9`` in a disk with the center ``(0, 0.5)`` and radius ``0.3`` and ``q(x_{1}, x_{2}) = 1`` outside the disk.
 # + Neumann boundary condition on ``\partial \Omega``.
 
@@ -22,6 +22,8 @@ function n(x)
         return 1.0
     end
 end;
+
+# The parameters related to the periodic cell and the discrete Brillouin zone.
 p = 1.0;
 h = 1.0;
 N = 100;
@@ -58,3 +60,39 @@ bz = collect(range(-π/p, π/p, N))
 # Finally, we can get our dispersion diagram.
 ## Plot the dispersion diagram
 plot_diagram(bz, μ, period=p)
+
+# ## Plain code
+# ```julia
+# using Ferrite: Lagrange, RefTriangle
+# using ClosedWaveguideDispersion
+# 
+# function n(x)
+#     r = sqrt(x[1]^2 + (x[2] - 0.5)^2) 
+# 
+#     if r <= 0.3
+#         return 9.0
+#     else 
+#         return 1.0
+#     end
+# end
+# 
+# p = 1.0
+# h = 1.0
+# N = 100
+# 
+# grid = setup_grid(lc=0.05, period=p, height=h)
+# 
+# ip = Lagrange{RefTriangle, 1}()
+# cv = setup_fevs(ip)
+# dh = setup_dofs(grid, ip)
+# 
+# cst = setup_bdcs(dh, period=p)
+# 
+# A = allocate_matries(dh, cst)
+# B = allocate_matries(dh, cst)
+# 
+# bz = collect(range(-π/p, π/p, N))
+# μ = calc_diagram(cv, dh, cst, A, B, n, bz, nevs=7)
+# 
+# plot_diagram(bz, μ, period=p)
+# ```

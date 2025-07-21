@@ -68,7 +68,7 @@ In [`calc_diagram`](@ref), `B` is generated only one time and `A` is generated w
 # Calculate the dispersion diagram
 μ = calc_diagram(cv, dh, cst, A, B, n, bz, nevs=7)
 ```
-Finally, we can plot our dispersion diagram.:
+Finally, we can plot our dispersion diagram.
 ```@example homo
 # Plot the dispersion diagram
 plot_diagram(bz, μ, period=p)
