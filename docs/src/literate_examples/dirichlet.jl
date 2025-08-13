@@ -1,4 +1,4 @@
-# # Homogeneous case with Dirichelt boundary condition
+# # Homogeneous case with Dirichlet boundary condition
 
 # ## Problem
 # 
