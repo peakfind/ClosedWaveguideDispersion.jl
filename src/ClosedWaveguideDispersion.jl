@@ -17,4 +17,6 @@ export calc_diagram
 include("plot.jl")
 export plot_diagram
 
+include("lattice.jl")
+
 end
