@@ -30,8 +30,7 @@ makedocs(;
         canonical="https://peakfind.github.io/ClosedWaveguideDispersion.jl",
         edit_link="main",
         assets=String[],
-        mathengine=MathJax3(),
-        versions = ["stable" => "v^", "v.#.#", "dev" => "dev"]
+        mathengine=MathJax3()
     ),
     pages=[
         "Home" => "index.md",
