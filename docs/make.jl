@@ -45,5 +45,5 @@ makedocs(;
 deploydocs(;
     repo="github.com/peakfind/ClosedWaveguideDispersion.jl",
     devbranch="main",
-    versions = ["stable" => "v^", "v#.#", "dev" => "main"]
+    versions = ["stable" => "v^", "v#.#", "dev" => "dev"]
 )
