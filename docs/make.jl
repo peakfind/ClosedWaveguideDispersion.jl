@@ -31,6 +31,7 @@ makedocs(;
         edit_link="main",
         assets=String[],
         mathengine=MathJax3(),
+        versions = ["stable" => "v^", "v.#.#", "dev" => "dev"]
     ),
     pages=[
         "Home" => "index.md",
@@ -45,4 +46,5 @@ makedocs(;
 deploydocs(;
     repo="github.com/peakfind/ClosedWaveguideDispersion.jl",
     devbranch="main",
+    versions = ["stable" => "v^", "v#.#", "dev" => "dev"]
 )
