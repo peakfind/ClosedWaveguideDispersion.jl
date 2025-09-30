@@ -13,7 +13,7 @@ SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
 [compat]
 Arpack = "0.5.4"
-CairoMakie = "0.13.5"
+CairoMakie = "0.13.5, 0.15"
 Ferrite = "1.1.0"
 FerriteGmsh = "1.2.1"
 Gmsh = "0.3.1"
