@@ -7,8 +7,12 @@ CurrentModule = ClosedWaveguideDispersion
 Documentation for [ClosedWaveguideDispersion](https://github.com/peakfind/ClosedWaveguideDispersion.jl).
 
 ## Usage 
-If you want to use ClosedWaveguideDispersion.jl, please press `]` in the REPL to 
-enter the `pkg>` mode. Then enter
+ClosedWaveguideDispersion.jl has been registered. To install ClosedWaveguideDisperion.jl, press `]` in 
+the REPL to enter the `pkg>` mode. Then enter
+```julia
+pkg> add ClosedWaveguideDispersion
+```
+If you want to use the `main` branch, please enter:
 ```julia
 pkg> add https://github.com/peakfind/ClosedWaveguideDispersion.jl.git
 ```
