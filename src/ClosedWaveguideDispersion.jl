@@ -6,6 +6,7 @@ using FerriteGmsh: togrid
 using SparseArrays
 using Arpack: eigs
 using CairoMakie
+using StaticArrays
 
 include("fem.jl")
 export setup_grid, setup_fevs, setup_dofs, setup_bdcs
