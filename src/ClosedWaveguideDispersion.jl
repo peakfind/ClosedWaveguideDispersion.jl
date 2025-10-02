@@ -19,5 +19,6 @@ include("plot.jl")
 export plot_diagram
 
 include("lattice.jl")
+export SquareLattice, IrreducibleBrillouin, get_discrete_irreducibleBrillouin
 
 end
