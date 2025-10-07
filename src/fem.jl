@@ -1,5 +1,9 @@
 # Finite element method codes based on Ferrite.jl
 
+# -------------------------------------------
+# FEM codes for 1D periodicity
+# -------------------------------------------
+
 """
     setup_grid(;lc=0.05, period=1.0, height=1.0)
 
@@ -99,7 +103,7 @@ Impose the periodic boundary condition in the horizontal direction.
 # Arguments
 
 - `dh`: DofHandler
-- `period`: the period of the closed waveguide in the horizontal direction.
+- `period`: the period of the closed waveguide in the horizontal direction
 """
 function setup_bdcs(dh::DofHandler; period = 1.0)
     cst = ConstraintHandler(dh)
@@ -230,4 +234,71 @@ function assemble_B(cv::CellValues, dh::DofHandler, B::SparseMatrixCSC, n::Funct
     end
 
     return B
+end
+
+# -------------------------------------------
+# FEM codes for bi-periodic
+# -------------------------------------------
+
+"""
+    setup_grid_squareLattice(;lc=0.05, period=2π)
+
+Generate meshes for periodic cells of square lattices.
+
+# Arguments
+
+- `lc`: the mesh size
+- `period`: the period of the square
+"""
+function setup_grid_squareLattice(;lc=0.05, period=2π)
+    # Initialize gmsh 
+    gmsh.initialize()
+    gmsh.option.setNumber("General.Verbosity", 2)
+    
+    # Add the points
+    # For the square
+    p1 = gmsh.model.geo.addPoint(period/2, -period/2, 0, lc)
+    p2 = gmsh.model.geo.addPoint(period/2, period/2, 0, lc)
+    p3 = gmsh.model.geo.addPoint(-period/2, period/2, 0, lc)
+    p4 = gmsh.model.geo.addPoint(-period/2, -period/2, 0, lc)
+
+    # Add the lines
+    l1 = gmsh.model.geo.addLine(p1, p2)
+    l2 = gmsh.model.geo.addLine(p2, p3)
+    l3 = gmsh.model.geo.addLine(p3, p4)
+    l4 = gmsh.model.geo.addLine(p4, p1)
+    
+    # Create the loops and the domain
+    loop = gmsh.model.geo.addCurveLoop([l1, l2, l3, l4])
+    surf = gmsh.model.geo.addPlaneSurface([loop])
+    
+    # Synchronize the model
+    gmsh.model.geo.synchronize()
+    
+    # Create physical domains
+    gmsh.model.addPhysicalGroup(1, [l1], -1, "right")
+    gmsh.model.addPhysicalGroup(1, [l2], -1, "top")
+    gmsh.model.addPhysicalGroup(1, [l3], -1, "left")
+    gmsh.model.addPhysicalGroup(1, [l4], -1, "bottom")
+    gmsh.model.addPhysicalGroup(2, [surf], -1, "Cell")
+ 
+    # Set bi-periodic boundary
+    transform1 = [1, 0, 0, period, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+    transform2 = [1, 0, 0, 0, 0, 1, 0, period, 0, 0, 1, 0, 0, 0, 0, 1]
+    gmsh.model.mesh.setPeriodic(1, [l1], [l3], transform1)
+    gmsh.model.mesh.setPeriodic(1, [l2], [l4], transform2)
+
+    # Generate a 2D mesh
+    gmsh.model.mesh.generate(2)
+    
+    # Read the .msh file by FerriteGmsh
+    grid = mktempdir() do dir 
+        path = joinpath(dir, "mesh.msh")
+        gmsh.write(path)
+        togrid(path)
+    end
+
+    gmsh.finalize()
+    
+    return grid 
 end

@@ -11,6 +11,7 @@ using StaticArrays
 include("fem.jl")
 export setup_grid, setup_fevs, setup_dofs, setup_bdcs
 export allocate_matries, assemble_A, assemble_B
+export setup_grid_squareLattice
 
 include("evp_solver.jl")
 export calc_diagram
