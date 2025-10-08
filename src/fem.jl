@@ -302,3 +302,249 @@ function setup_grid_squareLattice(;lc=0.05, period=2π)
     
     return grid 
 end
+
+function assemble_A_TM(cv::CellValues, dh::DofHandler, A::SparseMatrixCSC, α)
+    # Preallocate the local matrix
+    n_basefuncs = getnbasefunctions(cv)
+    Ae = zeros(ComplexF64, n_basefuncs, n_basefuncs)
+    
+    # Create an assembler
+    assembler = start_assemble(A)
+
+    # Loop over all cells
+    for cell in CellIterator(dh)
+        # Reinitialize cellvalues for this cell
+        reinit!(cv, cell)
+
+        # Reset local matrix to 0.0 + 0.0im
+        fill!(Ae, 0.0 + 0.0im)
+
+        # Loop over quadrature points
+        for qp in 1:getnquadpoints(cv)
+            dx = getdetJdV(cv, qp)
+
+            # Loop over test shape functions
+            for i in 1:n_basefuncs
+                v = shape_value(cv, qp, i)
+                ∇v = shape_gradient(cv, qp, i)
+
+                # Loop over trial shape functions
+                for j in 1:n_basefuncs
+                    u = shape_value(cv, qp, j)
+                    ∇u = shape_gradient(cv, qp, j)
+
+                    # Compute the local matrix according to the variational formulation
+                    Ae[i, j] += (∇u ⋅ ∇v - 2im * (α ⋅ ∇u) * v + (α ⋅ α) * u * v) * dx
+                end
+            end
+        end
+
+        assemble!(assembler, celldofs(cell), Ae)
+    end
+
+    return A
+end
+
+function assemble_B_TM(cv::CellValues, dh::DofHandler, B::SparseMatrixCSC, ϵ::Function)
+    # Preallocate the local matrix
+    n_basefuncs = getnbasefunctions(cv)
+    Be = zeros(ComplexF64, n_basefuncs, n_basefuncs)
+
+    # Create an assembler
+    assembler = start_assemble(B)
+
+    # Loop over all cells
+    for cell in CellIterator(dh)
+        # Reinitialize cellvalues for this cell
+        reinit!(cv, cell)
+
+        # Reset local matrix to 0.0 + 0.0im
+        fill!(Be, 0.0 + 0.0im)
+
+        # Get the coordinates of this cell
+        coords = getcoordinates(cell)
+
+        # Loop over quadrature points
+        for qp in 1:getnquadpoints(cv)
+            dx = getdetJdV(cv, qp)
+
+            # Get the coordinates of the quadrature point
+            # and evaluate the refractive index at this point
+            coords_qp = spatial_coordinate(cv, qp, coords)
+            ri = ϵ(coords_qp)
+
+            # Loop over test shape functions
+            for i in 1:n_basefuncs
+                v = shape_value(cv, qp, i)
+
+                # Loop over trial shape functions
+                for j in 1:n_basefuncs
+                    u = shape_value(cv, qp, j)
+
+                    # Compute the local matrix according to the variational formulation
+                    Be[i, j] += (ri * u * v) * dx
+                end
+            end
+        end
+
+        assemble!(assembler, celldofs(cell), Be)
+    end
+
+    return B
+end
+
+function calc_diagram_TM(cv::CellValues, dh::DofHandler, cst::ConstraintHandler, A::SparseMatrixCSC, B::SparseMatrixCSC, ϵ::Function, dibz; nevs::Int = 4, which = :SR)
+    m = length(dibz)
+    μ = zeros(m, nevs)
+    
+    # Assemble the matrix B
+    B = assemble_B_TM(cv, dh, B, ϵ)
+
+    # Impose the boundary conditions
+    apply!(B, cst)
+    
+    # Assemble the matrix A at α in dibz
+    for (i, α) in enumerate(dibz)
+        @info "Solving the Generialized Eigenvalue Problem (TM) at $α"
+
+        # Assemble A at α
+        A = assemble_A_TM(cv, dh, A, α)
+        
+        # Impose the boundary condition
+        apply!(A, cst)
+        
+        # Solve the generalized eigenvalue problem by Arpack.jl
+        λ, _ = eigs(A, B, nev = nevs, which = which, maxiter=3000)
+        @show λ
+        λ = real(λ)
+        μ[i, :] = λ
+        
+        # Reset A to 0.0 + 0.0im
+        fill!(A, 0.0 + 0.0im)
+    end
+    
+    return μ
+end
+
+function assemble_A_TE(cv::CellValues, dh::DofHandler, A::SparseMatrixCSC, ϵ::Function, α)
+    # Preallocate the local matrix
+    n_basefuncs = getnbasefunctions(cv)
+    Ae = zeros(ComplexF64, n_basefuncs, n_basefuncs)
+
+    # Create an assembler
+    assembler = start_assemble(A)
+
+    # Loop over all cells
+    for cell in CellIterator(dh)
+        # Reinitialize cellvalues for this cell
+        reinit!(cv, cell)
+
+        # Reset local matrix to 0.0 + 0.0im
+        fill!(Ae, 0.0 + 0.0im)
+        
+        # Get the coordinates of this cell
+        coords = getcoordinates(cell)
+
+        # Loop over quadrature points
+        for qp in 1:getnquadpoints(cv)
+            dx = getdetJdV(cv, qp)
+            
+            # Get the coordinates of the quadrature point
+            # and evaluate the refractive index at this point
+            coords_qp = spatial_coordinate(cv, qp, coords)
+            ri = ϵ(coords_qp)
+
+            # Loop over test shape functions
+            for i in 1:n_basefuncs
+                v = shape_value(cv, qp, i)
+                ∇v = shape_gradient(cv, qp, i)
+
+                # Loop over trial shape functions
+                for j in 1:n_basefuncs
+                    u = shape_value(cv, qp, j)
+                    ∇u = shape_gradient(cv, qp, j)
+
+                    # Compute the local matrix according to the variational formulation
+                    Ae[i, j] += ((∇u ⋅ ∇v + im * u * (α ⋅ ∇v) - im * (α ⋅ ∇u) * v + (α ⋅ α) * u * v)/ri) * dx
+                end
+            end
+        end
+
+        assemble!(assembler, celldofs(cell), Ae)
+    end
+
+    return A
+end
+
+function assemble_B_TE(cv::CellValues, dh::DofHandler, B::SparseMatrixCSC)
+     # Preallocate the local matrix
+    n_basefuncs = getnbasefunctions(cv)
+    Be = zeros(ComplexF64, n_basefuncs, n_basefuncs)
+
+    # Create an assembler
+    assembler = start_assemble(B)
+
+    # Loop over all cells
+    for cell in CellIterator(dh)
+        # Reinitialize cellvalues for this cell
+        reinit!(cv, cell)
+
+        # Reset local matrix to 0.0 + 0.0im
+        fill!(Be, 0.0 + 0.0im)
+
+        # Loop over quadrature points
+        for qp in 1:getnquadpoints(cv)
+            dx = getdetJdV(cv, qp)
+
+            # Loop over test shape functions
+            for i in 1:n_basefuncs
+                v = shape_value(cv, qp, i)
+
+                # Loop over trial shape functions
+                for j in 1:n_basefuncs
+                    u = shape_value(cv, qp, j)
+
+                    # Compute the local matrix according to the variational formulation
+                    Be[i, j] += (u * v) * dx
+                end
+            end
+        end
+
+        assemble!(assembler, celldofs(cell), Be)
+    end
+
+    return B
+end
+
+function calc_diagram_TE(cv::CellValues, dh::DofHandler, cst::ConstraintHandler, A::SparseMatrixCSC, B::SparseMatrixCSC, ϵ::Function, dibz; nevs::Int = 4, which = :SR)
+    m = length(dibz)
+    μ = zeros(m, nevs)
+    
+    # Assemble the matrix B
+    B = assemble_B_TE(cv, dh, B)
+
+    # Impose the boundary conditions
+    apply!(B, cst)
+    
+    # Assemble the matrix A at α in dibz
+    for (i, α) in enumerate(dibz)
+        @info "Solving the Generialized Eigenvalue Problem (TE) at $α"
+
+        # Assemble A at α
+        A = assemble_A_TE(cv, dh, A, ϵ, α)
+        
+        # Impose the boundary condition
+        apply!(A, cst)
+        
+        # Solve the generalized eigenvalue problem by Arpack.jl
+        λ, _ = eigs(A, B, nev = nevs, which = which, maxiter=3000)
+        @show λ
+        λ = real(λ)
+        μ[i, :] = λ
+        
+        # Reset A to 0.0 + 0.0im
+        fill!(A, 0.0 + 0.0im)
+    end
+    
+    return μ 
+end
