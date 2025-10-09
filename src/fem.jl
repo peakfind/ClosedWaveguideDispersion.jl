@@ -393,38 +393,7 @@ function assemble_B_TM(cv::CellValues, dh::DofHandler, B::SparseMatrixCSC, ϵ::F
     return B
 end
 
-function calc_diagram_TM(cv::CellValues, dh::DofHandler, cst::ConstraintHandler, A::SparseMatrixCSC, B::SparseMatrixCSC, ϵ::Function, dibz; nevs::Int = 4, which = :SR)
-    m = length(dibz)
-    μ = zeros(m, nevs)
-    
-    # Assemble the matrix B
-    B = assemble_B_TM(cv, dh, B, ϵ)
 
-    # Impose the boundary conditions
-    apply!(B, cst)
-    
-    # Assemble the matrix A at α in dibz
-    for (i, α) in enumerate(dibz)
-        @info "Solving the Generialized Eigenvalue Problem (TM) at $α"
-
-        # Assemble A at α
-        A = assemble_A_TM(cv, dh, A, α)
-        
-        # Impose the boundary condition
-        apply!(A, cst)
-        
-        # Solve the generalized eigenvalue problem by Arpack.jl
-        λ, _ = eigs(A, B, nev = nevs, which = which, maxiter=3000)
-        @show λ
-        λ = real(λ)
-        μ[i, :] = λ
-        
-        # Reset A to 0.0 + 0.0im
-        fill!(A, 0.0 + 0.0im)
-    end
-    
-    return μ
-end
 
 function assemble_A_TE(cv::CellValues, dh::DofHandler, A::SparseMatrixCSC, ϵ::Function, α)
     # Preallocate the local matrix
@@ -514,37 +483,4 @@ function assemble_B_TE(cv::CellValues, dh::DofHandler, B::SparseMatrixCSC)
     end
 
     return B
-end
-
-function calc_diagram_TE(cv::CellValues, dh::DofHandler, cst::ConstraintHandler, A::SparseMatrixCSC, B::SparseMatrixCSC, ϵ::Function, dibz; nevs::Int = 4, which = :SR)
-    m = length(dibz)
-    μ = zeros(m, nevs)
-    
-    # Assemble the matrix B
-    B = assemble_B_TE(cv, dh, B)
-
-    # Impose the boundary conditions
-    apply!(B, cst)
-    
-    # Assemble the matrix A at α in dibz
-    for (i, α) in enumerate(dibz)
-        @info "Solving the Generialized Eigenvalue Problem (TE) at $α"
-
-        # Assemble A at α
-        A = assemble_A_TE(cv, dh, A, ϵ, α)
-        
-        # Impose the boundary condition
-        apply!(A, cst)
-        
-        # Solve the generalized eigenvalue problem by Arpack.jl
-        λ, _ = eigs(A, B, nev = nevs, which = which, maxiter=3000)
-        @show λ
-        λ = real(λ)
-        μ[i, :] = λ
-        
-        # Reset A to 0.0 + 0.0im
-        fill!(A, 0.0 + 0.0im)
-    end
-    
-    return μ 
 end
