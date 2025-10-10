@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>PA-Two · ClosedWaveguideDispersion.jl</title><meta name="title" content="PA-Two · ClosedWaveguideDispersion.jl"/><meta property="og:title" content="PA-Two · ClosedWaveguideDispersion.jl"/><meta property="twitter:title" content="PA-Two · ClosedWaveguideDispersion.jl"/><meta name="description" content="Documentation for ClosedWaveguideDispersion.jl."/><meta property="og:description" content="Documentation for ClosedWaveguideDispersion.jl."/><meta property="twitter:description" content="Documentation for ClosedWaveguideDispersion.jl."/><meta property="og:url" content="https://peakfind.github.io/ClosedWaveguideDispersion.jl/pa2/"/><meta property="twitter:url" content="https://peakfind.github.io/ClosedWaveguideDispersion.jl/pa2/"/><link rel="canonical" href="https://peakfind.github.io/ClosedWaveguideDispersion.jl/pa2/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">ClosedWaveguideDispersion.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><span class="tocitem">Tutorial</span><ul><li><a class="tocitem" href="../tutorial/">Tutorial</a></li><li><a class="tocitem" href="../homogeneous/">Homogeneous case with Neumann boundary condition</a></li></ul></li><li><span class="tocitem">Examples</span><ul><li><a class="tocitem" href="../dirichlet/">Homogeneous case with Dirichlet boundary condition</a></li><li><a class="tocitem" href="../zhang_case2/">Inhomogeneous case</a></li><li class="is-active"><a class="tocitem" href>PA-Two</a><ul class="internal"><li><a class="tocitem" href="#Problem"><span>Problem</span></a></li><li><a class="tocitem" href="#Code"><span>Code</span></a></li><li><a class="tocitem" href="#Plain-code"><span>Plain code</span></a></li></ul></li><li><a class="tocitem" href="../pa3/">PA-Three</a></li></ul></li><li><a class="tocitem" href="../api/">API</a></li><li><a class="tocitem" href="../references/">References</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples</a></li><li class="is-active"><a href>PA-Two</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>PA-Two</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/peakfind/ClosedWaveguideDispersion.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/peakfind/ClosedWaveguideDispersion.jl/blob/main/docs/src/literate_examples/pa2.jl" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="PA-Two"><a class="docs-heading-anchor" href="#PA-Two">PA-Two</a><a id="PA-Two-1"></a><a class="docs-heading-anchor-permalink" href="#PA-Two" title="Permalink"></a></h1><h2 id="Problem"><a class="docs-heading-anchor" href="#Problem">Problem</a><a id="Problem-1"></a><a class="docs-heading-anchor-permalink" href="#Problem" title="Permalink"></a></h2><p>PA-Two is an example in [<a href="../references/#ehrhardt-sun-zheng2009">4</a>] and satisfies the following conditions:</p><ul><li>a rectangular hole of size <span>$0.5 \times 0.5$</span> in the cell center.</li><li>Neumann boundary condition on <span>$\partial \Omega$</span>.</li><li>homogeneous Dirichlet boundary condition at the hole boundary.</li></ul><h2 id="Code"><a class="docs-heading-anchor" href="#Code">Code</a><a id="Code-1"></a><a class="docs-heading-anchor-permalink" href="#Code" title="Permalink"></a></h2><p>For this example, we also need to load Gmsh and FerriteGmsh to generate the mesh</p><pre><code class="language-julia hljs">using Gmsh
+using Ferrite
+using FerriteGmsh
+using ClosedWaveguideDispersion</code></pre><p>We need to customize our mesh and boundary conditions.</p><pre><code class="language-julia hljs">function my_grid(;lc=0.05, period=1.0, height=1.0, holewidth=0.5, holeheight=0.5)
+    # Initialize gmsh
+    gmsh.initialize()
+    gmsh.option.setNumber(&quot;General.Verbosity&quot;, 2)
+
+    # Add the points
+    p1 = gmsh.model.geo.addPoint(-period/2, 0, 0, lc)
+    p2 = gmsh.model.geo.addPoint(period/2, 0, 0, lc)
+    p3 = gmsh.model.geo.addPoint(period/2, height, 0, lc)
+    p4 = gmsh.model.geo.addPoint(-period/2, height, 0, lc)
+    p5 = gmsh.model.geo.addPoint(-holewidth/2, (height - holeheight)/2, 0, lc)
+    p6 = gmsh.model.geo.addPoint(holewidth/2, (height - holeheight)/2, 0, lc)
+    p7 = gmsh.model.geo.addPoint(holewidth/2, (height + holeheight)/2, 0, lc)
+    p8 = gmsh.model.geo.addPoint(-holewidth/2, (height + holeheight)/2, 0, lc)
+
+    # Add the lines
+    l1 = gmsh.model.geo.addLine(p1, p2)
+    l2 = gmsh.model.geo.addLine(p2, p3)
+    l3 = gmsh.model.geo.addLine(p3, p4)
+    l4 = gmsh.model.geo.addLine(p4, p1)
+    l5 = gmsh.model.geo.addLine(p5, p6)
+    l6 = gmsh.model.geo.addLine(p6, p7)
+    l7 = gmsh.model.geo.addLine(p7, p8)
+    l8 = gmsh.model.geo.addLine(p8, p5)
+
+    # Create loops and the domain
+    outerLoop = gmsh.model.geo.addCurveLoop([l1, l2, l3, l4])
+    innerLoop = gmsh.model.geo.addCurveLoop([l5, l6, l7, l8])
+    domain = gmsh.model.geo.addPlaneSurface([outerLoop, innerLoop])
+
+    # Synchronize the model
+    gmsh.model.geo.synchronize()
+
+    # Create the physical domains
+    gmsh.model.addPhysicalGroup(1, [l1], -1, &quot;bottom&quot;)
+    gmsh.model.addPhysicalGroup(1, [l2], -1, &quot;right&quot;)
+    gmsh.model.addPhysicalGroup(1, [l3], -1, &quot;top&quot;)
+    gmsh.model.addPhysicalGroup(1, [l4], -1, &quot;left&quot;)
+    gmsh.model.addPhysicalGroup(1, [l5, l6, l7, l8], -1, &quot;Γ&quot;)
+    gmsh.model.addPhysicalGroup(2, [domain], -1, &quot;Ω&quot;)
+
+    # Set Periodic boundary condition
+    transform = [1, 0, 0, period, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+    gmsh.model.mesh.setPeriodic(1, [l2], [l4], transform)
+
+    # Generate a 2D mesh
+    gmsh.model.mesh.generate(2)
+
+    grid = mktempdir() do dir
+        path = joinpath(dir, &quot;hole.msh&quot;)
+        gmsh.write(path)
+        togrid(path)
+    end
+
+    # Finalize the Gmsh library
+    gmsh.finalize()
+
+    return grid
+end;</code></pre><p>We still use homogeneous medium in the waveguide.</p><pre><code class="language-julia hljs">function n(x)
+    return 1.0
+end;</code></pre><p>We need to implement a new function to impose the boundary condition.</p><pre><code class="language-julia hljs">function my_bdcs(dh::DofHandler; period=1.0)
+    cst = ConstraintHandler(dh)
+
+    # Periodic boundary condition on the left and right
+    # side of the periodic cell
+    pfacets = collect_periodic_facets(dh.grid, &quot;right&quot;, &quot;left&quot;, x -&gt; x + Ferrite.Vec{2}((period, 0.0)))
+    pbc = PeriodicDirichlet(:u, pfacets)
+    add!(cst, pbc)
+
+    # Set Dirichlet boundary condition on the inner boundary
+    dfacets = getfacetset(dh.grid, &quot;Γ&quot;)
+    dbc = Dirichlet(:u, dfacets, x -&gt; 0)
+    add!(cst, dbc)
+
+    close!(cst)
+
+    return cst
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">my_bdcs (generic function with 1 method)</code></pre><p>Set parameters</p><pre><code class="language-julia hljs">p = 1.0;
+h = 1.0;
+hw = 0.5;
+hh = 0.5;
+N = 150;</code></pre><p>Set up the grid</p><pre><code class="language-julia hljs">grid = my_grid(lc=0.05, period=p, height=h, holewidth=hw, holeheight=hh)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Ferrite.Grid{2, Ferrite.Triangle, Float64} with 730 Ferrite.Triangle cells and 425 nodes</code></pre><p>Basic steps need by Ferrite.jl</p><pre><code class="language-julia hljs"># Define the interpolation
+ip = Lagrange{RefTriangle, 1}()
+# Set up the FE values: CellValues
+cv = setup_fevs(ip)
+# Set up the DofHandler
+dh = setup_dofs(grid, ip)
+
+# Set the boundary conditions
+cst = my_bdcs(dh, period=p)
+
+# Allocate the matrices
+A = allocate_matries(dh, cst)
+B = allocate_matries(dh, cst)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">425×425 SparseArrays.SparseMatrixCSC{ComplexF64, Int64} with 2819 stored entries:
+⎡⠻⢆⡄⢸⣦⠘⡠⠀⠈⠀⠁⠑⠀⠂⠀⠀⠼⠀⡀⠐⠀⣀⠁⢀⠀⠆⠀⠀⠀⡠⠀⢤⠆⠂⢀⠘⠃⠀⠀⠀⎤
+⎢⣀⣉⣿⢟⠸⣱⡀⠠⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠧⡀⠁⣾⠰⠉⠀⠁⠀⠀⠀⠀⢈⠉⠇⡸⠈⣆⠢⠀⠠⠀⎥
+⎢⣈⠛⢖⣢⡵⣯⡵⠀⣤⠀⡀⡨⠅⡀⠀⠀⠂⠀⢂⠀⠠⡢⢠⡤⠀⠂⢀⠀⠀⡍⠀⢀⠀⠀⠼⢨⣀⠀⠀⠐⎥
+⎢⠀⠊⠀⡈⠑⠋⠿⣧⡈⠇⠀⠁⠀⠀⠀⠀⠢⠀⠀⠃⠀⡀⣨⠠⠀⠠⡸⠀⣠⡀⠐⡃⢂⣠⠸⡘⠁⠀⠀⡐⎥
+⎢⠂⠀⠀⠐⠀⠛⠦⠌⡿⣯⢺⠂⣩⢀⣸⡀⠀⠀⠰⠂⠀⡄⠂⠐⠀⠐⠁⠀⠀⠉⠂⠁⠄⠀⡀⠈⠀⡀⢁⠀⎥
+⎢⢅⠀⠀⠀⡀⡨⠄⠀⠺⠒⠻⣦⣰⡄⣀⡣⠤⡅⢤⡈⡁⠂⠀⠀⣀⡁⠘⠀⠀⠆⡀⠂⠀⠀⡂⠀⠎⠁⠂⠀⎥
+⎢⠠⠀⠀⠀⠁⠡⠀⠀⠃⢚⠐⠾⠱⣦⡜⠦⠀⠆⡄⣠⠀⡄⠀⠀⡈⠈⠀⠁⠈⠆⠀⠂⠀⠀⠀⠀⠀⡘⢁⠀⎥
+⎢⠀⠀⠀⠀⠀⠀⠀⠀⠒⠺⠤⡸⠲⡍⣱⣾⢀⡄⠉⠱⢅⠁⠂⠀⠂⠀⠀⠀⠀⡀⣠⠀⡀⠀⢀⠀⠀⠲⣜⠀⎥
+⎢⠒⠃⠀⠀⠈⠀⠈⠂⠀⠀⠄⠧⠠⠄⠀⠴⠟⣥⢠⡤⡶⠄⠒⡄⣀⠄⠈⠜⠅⠄⠀⠀⠆⠀⣵⠀⢠⢃⠴⣀⎥
+⎢⢀⠈⠉⠣⠈⠐⠤⠀⠰⠂⡀⠳⠀⣩⢇⡀⠀⡶⠿⢇⡂⠊⠴⢘⡖⣂⡀⠀⠀⠀⡂⢀⠀⢀⠐⠠⡈⡠⢿⠨⎥
+⎢⠀⢠⣡⣤⠠⡢⠀⠠⠀⠤⠡⠈⠀⠤⠅⠑⠘⠏⡨⠈⣻⣾⣱⣵⢐⢐⢖⡃⡐⡂⠁⠔⢍⠀⠈⢀⠠⠀⠠⠀⎥
+⎢⠁⢀⡔⠂⠀⡶⠂⡚⢈⠀⠀⠀⠀⠀⠈⠀⠘⠤⣐⢃⢕⣾⢟⢕⠥⣀⣀⠂⢀⠀⠀⠀⠅⠄⠰⠘⠢⠁⠀⠧⎥
+⎢⠠⠄⠄⠀⠠⠀⠀⡀⢀⠀⠄⠸⡂⠈⠈⠀⠀⠜⠸⢩⢐⢐⠁⢣⣻⢞⣗⡂⣶⠀⡂⠀⢄⢀⠾⠤⠠⠙⠌⠁⎥
+⎢⠀⠀⠀⠀⠀⠐⠒⠊⠁⠀⠒⠀⠄⠀⠀⠀⣂⠄⠀⠈⠼⠱⠠⠘⠹⠹⠵⣧⡶⠊⢄⠐⠀⠈⠃⠠⠂⢀⣄⠕⎥
+⎢⠀⡠⠀⠀⡄⠤⠀⠺⡄⠀⠠⠄⠢⠄⠀⠠⠁⠅⠀⠀⠰⠨⠀⠐⠘⠛⡸⠋⠻⢆⣈⡡⠈⠘⠄⢇⢈⢙⠀⠀⎥
+⎢⠀⣄⡆⠐⠀⢀⠴⠠⠌⠀⠠⠈⠠⠀⠀⠚⠀⠀⠈⢈⢁⠄⠀⠀⠈⠈⢀⠑⠆⡸⠻⣦⠀⢀⠐⠊⡐⠘⠁⠀⎥
+⎢⠨⠁⣉⡡⠀⠀⠈⣰⠀⠁⠀⠀⠀⠀⠀⠈⠈⠁⠀⢀⠃⠑⠁⠅⠀⢑⡀⠀⣂⠀⠀⢀⢿⢗⣁⡰⢀⣂⠈⠄⎥
+⎢⣀⠐⠢⢤⡒⣃⣒⠢⡀⠈⠈⠈⠀⠀⠀⠐⠑⠛⠐⡀⠂⢀⣐⠂⠚⡇⠉⡀⠤⢅⡰⠀⢁⡸⠛⢄⠾⡑⡈⣉⎥
+⎢⠉⠀⠈⠂⠀⠘⠁⠀⠀⠠⠎⠁⣀⠠⢠⡀⠤⢒⠂⡨⠀⠂⠌⠂⣄⠂⠈⢀⣆⢐⣐⠈⠠⢰⢞⠣⢱⣶⡰⠔⎥
+⎣⠀⠀⠀⠂⢀⠀⢀⠠⠁⠐⠈⠀⠁⠐⠒⠙⠐⢣⡛⡓⠀⠂⠤⡄⠆⠁⢄⠝⠀⠀⠁⠀⠂⠄⡆⢨⢐⠎⠛⣤⎦</code></pre><p>We discretize the Brillouin zone and calculate the dispersion diagram.</p><pre><code class="language-julia hljs">bz = collect(range(-π/p, 2π/p, N))
+μ = calc_diagram(cv, dh, cst, A, B, n, bz, nevs=5)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">150×5 Matrix{Float64}:
+ 27.0388  30.6954  48.0029  48.0246  67.2005
+ 27.0229  30.6755  48.0172  48.0494  67.1889
+ 27.0006  30.6455  48.0488  48.0989  67.1805
+ 26.9722  30.6057  48.0976  48.1731  67.1753
+ 26.9377  30.5564  48.1634  48.2715  67.1732
+ 26.8973  30.498   48.2457  48.3936  67.1745
+ 26.8514  30.4311  48.3444  48.5391  67.1792
+ 26.8001  30.3562  48.4589  48.7072  67.1873
+ 26.7438  30.2738  48.5888  48.8975  67.199
+ 26.6828  30.1848  48.7337  49.1092  67.2144
+  ⋮                                  
+ 25.0369  27.659   57.2561  63.5987  72.456
+ 25.0159  27.6259  57.4625  64.1934  72.7955
+ 24.9992  27.5981  57.6546  64.7854  73.1449
+ 24.9867  27.5756  57.8319  65.3714  73.5019
+ 24.9785  27.5585  57.9939  65.9469  73.8631
+ 24.9748  27.5469  58.1402  66.506   74.2237
+ 24.9755  27.5409  58.2706  67.0402  74.5775
+ 24.9808  27.5404  58.3847  67.5383  74.9157
+ 24.9905  27.5455  58.4824  67.9844  75.2268</code></pre><p>Now we can plot the dispersion diagram.</p><pre><code class="language-julia hljs">plot_diagram(bz, μ, period=p)</code></pre><img src="262cfe75.png" alt="Example block output"/><h2 id="Plain-code"><a class="docs-heading-anchor" href="#Plain-code">Plain code</a><a id="Plain-code-1"></a><a class="docs-heading-anchor-permalink" href="#Plain-code" title="Permalink"></a></h2><pre><code class="language-julia hljs">using Gmsh
+using Ferrite
+using FerriteGmsh
+using ClosedWaveguideDispersion
+
+function my_grid(;lc=0.05, period=1.0, height=1.0, holewidth=0.5, holeheight=0.5)
+    # Initialize gmsh
+    gmsh.initialize()
+    gmsh.option.setNumber(&quot;General.Verbosity&quot;, 2)
+
+    # Add the points
+    p1 = gmsh.model.geo.addPoint(-period/2, 0, 0, lc)
+    p2 = gmsh.model.geo.addPoint(period/2, 0, 0, lc)
+    p3 = gmsh.model.geo.addPoint(period/2, height, 0, lc)
+    p4 = gmsh.model.geo.addPoint(-period/2, height, 0, lc)
+    p5 = gmsh.model.geo.addPoint(-holewidth/2, (height - holeheight)/2, 0, lc)
+    p6 = gmsh.model.geo.addPoint(holewidth/2, (height - holeheight)/2, 0, lc)
+    p7 = gmsh.model.geo.addPoint(holewidth/2, (height + holeheight)/2, 0, lc)
+    p8 = gmsh.model.geo.addPoint(-holewidth/2, (height + holeheight)/2, 0, lc)
+
+    # Add the lines
+    l1 = gmsh.model.geo.addLine(p1, p2)
+    l2 = gmsh.model.geo.addLine(p2, p3)
+    l3 = gmsh.model.geo.addLine(p3, p4)
+    l4 = gmsh.model.geo.addLine(p4, p1)
+    l5 = gmsh.model.geo.addLine(p5, p6)
+    l6 = gmsh.model.geo.addLine(p6, p7)
+    l7 = gmsh.model.geo.addLine(p7, p8)
+    l8 = gmsh.model.geo.addLine(p8, p5)
+
+    # Create loops and the domain
+    outerLoop = gmsh.model.geo.addCurveLoop([l1, l2, l3, l4])
+    innerLoop = gmsh.model.geo.addCurveLoop([l5, l6, l7, l8])
+    domain = gmsh.model.geo.addPlaneSurface([outerLoop, innerLoop])
+
+    # Synchronize the model
+    gmsh.model.geo.synchronize()
+
+    # Create the physical domains
+    gmsh.model.addPhysicalGroup(1, [l1], -1, &quot;bottom&quot;)
+    gmsh.model.addPhysicalGroup(1, [l2], -1, &quot;right&quot;)
+    gmsh.model.addPhysicalGroup(1, [l3], -1, &quot;top&quot;)
+    gmsh.model.addPhysicalGroup(1, [l4], -1, &quot;left&quot;)
+    gmsh.model.addPhysicalGroup(1, [l5, l6, l7, l8], -1, &quot;Γ&quot;)
+    gmsh.model.addPhysicalGroup(2, [domain], -1, &quot;Ω&quot;)
+
+    # Set Periodic boundary condition
+    transform = [1, 0, 0, period, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+    gmsh.model.mesh.setPeriodic(1, [l2], [l4], transform)
+
+    # Generate a 2D mesh
+    gmsh.model.mesh.generate(2)
+
+    grid = mktempdir() do dir
+        path = joinpath(dir, &quot;hole.msh&quot;)
+        gmsh.write(path)
+        togrid(path)
+    end
+
+    # Finalize the Gmsh library
+    gmsh.finalize()
+
+    return grid
+end
+
+function n(x)
+    return 1.0
+end
+
+function my_bdcs(dh::DofHandler; period=1.0)
+    cst = ConstraintHandler(dh)
+
+    # Periodic boundary condition on the left and right
+    # side of the periodic cell
+    pfacets = collect_periodic_facets(dh.grid, &quot;right&quot;, &quot;left&quot;, x -&gt; x + Ferrite.Vec{2}((period, 0.0)))
+    pbc = PeriodicDirichlet(:u, pfacets)
+    add!(cst, pbc)
+
+    # Set Dirichlet boundary condition on the inner boundary
+    dfacets = getfacetset(dh.grid, &quot;Γ&quot;)
+    dbc = Dirichlet(:u, dfacets, x -&gt; 0)
+    add!(cst, dbc)
+
+    close!(cst)
+
+    return cst
+end
+
+p = 1.0
+h = 1.0
+hw = 0.5
+hh = 0.5
+N = 150
+
+grid = my_grid(lc=0.05, period=p, height=h, holewidth=hw, holeheight=hh)
+
+ip = Lagrange{RefTriangle, 1}()
+cv = setup_fevs(ip)
+dh = setup_dofs(grid, ip)
+cst = my_bdcs(dh, period=p)
+
+A = allocate_matries(dh, cst)
+B = allocate_matries(dh, cst)
+
+bz = collect(range(-π/p, 2π/p, N))
+μ = calc_diagram(cv, dh, cst, A, B, n, bz, nevs=5)
+plot_diagram(bz, μ, period=p)</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../zhang_case2/">« Inhomogeneous case</a><a class="docs-footer-nextpage" href="../pa3/">PA-Three »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Friday 10 October 2025 16:17">Friday 10 October 2025</span>. Using Julia version 1.12.0.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
