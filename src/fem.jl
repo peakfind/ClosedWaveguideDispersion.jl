@@ -250,38 +250,38 @@ Generate meshes for periodic cells of square lattices.
 - `lc`: the mesh size
 - `period`: the period of the square
 """
-function setup_grid_squareLattice(;lc=0.05, period=2π)
-    # Initialize gmsh 
+function setup_grid_squareLattice(; lc = 0.05, period = 2π)
+    # Initialize gmsh
     gmsh.initialize()
     gmsh.option.setNumber("General.Verbosity", 2)
-    
+
     # Add the points
     # For the square
-    p1 = gmsh.model.geo.addPoint(period/2, -period/2, 0, lc)
-    p2 = gmsh.model.geo.addPoint(period/2, period/2, 0, lc)
-    p3 = gmsh.model.geo.addPoint(-period/2, period/2, 0, lc)
-    p4 = gmsh.model.geo.addPoint(-period/2, -period/2, 0, lc)
+    p1 = gmsh.model.geo.addPoint(period / 2, -period / 2, 0, lc)
+    p2 = gmsh.model.geo.addPoint(period / 2, period / 2, 0, lc)
+    p3 = gmsh.model.geo.addPoint(-period / 2, period / 2, 0, lc)
+    p4 = gmsh.model.geo.addPoint(-period / 2, -period / 2, 0, lc)
 
     # Add the lines
     l1 = gmsh.model.geo.addLine(p1, p2)
     l2 = gmsh.model.geo.addLine(p2, p3)
     l3 = gmsh.model.geo.addLine(p3, p4)
     l4 = gmsh.model.geo.addLine(p4, p1)
-    
+
     # Create the loops and the domain
     loop = gmsh.model.geo.addCurveLoop([l1, l2, l3, l4])
     surf = gmsh.model.geo.addPlaneSurface([loop])
-    
+
     # Synchronize the model
     gmsh.model.geo.synchronize()
-    
+
     # Create physical domains
     gmsh.model.addPhysicalGroup(1, [l1], -1, "right")
     gmsh.model.addPhysicalGroup(1, [l2], -1, "top")
     gmsh.model.addPhysicalGroup(1, [l3], -1, "left")
     gmsh.model.addPhysicalGroup(1, [l4], -1, "bottom")
     gmsh.model.addPhysicalGroup(2, [surf], -1, "Cell")
- 
+
     # Set bi-periodic boundary
     transform1 = [1, 0, 0, period, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
     transform2 = [1, 0, 0, 0, 0, 1, 0, period, 0, 0, 1, 0, 0, 0, 0, 1]
@@ -290,24 +290,24 @@ function setup_grid_squareLattice(;lc=0.05, period=2π)
 
     # Generate a 2D mesh
     gmsh.model.mesh.generate(2)
-    
+
     # Read the .msh file by FerriteGmsh
-    grid = mktempdir() do dir 
+    grid = mktempdir() do dir
         path = joinpath(dir, "mesh.msh")
         gmsh.write(path)
         togrid(path)
     end
 
     gmsh.finalize()
-    
-    return grid 
+
+    return grid
 end
 
 function assemble_A_TM(cv::CellValues, dh::DofHandler, A::SparseMatrixCSC, α)
     # Preallocate the local matrix
     n_basefuncs = getnbasefunctions(cv)
     Ae = zeros(ComplexF64, n_basefuncs, n_basefuncs)
-    
+
     # Create an assembler
     assembler = start_assemble(A)
 
@@ -394,7 +394,6 @@ function assemble_B_TM(cv::CellValues, dh::DofHandler, B::SparseMatrixCSC, ϵ::F
 end
 
 
-
 function assemble_A_TE(cv::CellValues, dh::DofHandler, A::SparseMatrixCSC, ϵ::Function, α)
     # Preallocate the local matrix
     n_basefuncs = getnbasefunctions(cv)
@@ -410,14 +409,14 @@ function assemble_A_TE(cv::CellValues, dh::DofHandler, A::SparseMatrixCSC, ϵ::F
 
         # Reset local matrix to 0.0 + 0.0im
         fill!(Ae, 0.0 + 0.0im)
-        
+
         # Get the coordinates of this cell
         coords = getcoordinates(cell)
 
         # Loop over quadrature points
         for qp in 1:getnquadpoints(cv)
             dx = getdetJdV(cv, qp)
-            
+
             # Get the coordinates of the quadrature point
             # and evaluate the refractive index at this point
             coords_qp = spatial_coordinate(cv, qp, coords)
@@ -434,7 +433,7 @@ function assemble_A_TE(cv::CellValues, dh::DofHandler, A::SparseMatrixCSC, ϵ::F
                     ∇u = shape_gradient(cv, qp, j)
 
                     # Compute the local matrix according to the variational formulation
-                    Ae[i, j] += ((∇u ⋅ ∇v + im * u * (α ⋅ ∇v) - im * (α ⋅ ∇u) * v + (α ⋅ α) * u * v)/ri) * dx
+                    Ae[i, j] += ((∇u ⋅ ∇v + im * u * (α ⋅ ∇v) - im * (α ⋅ ∇u) * v + (α ⋅ α) * u * v) / ri) * dx
                 end
             end
         end
@@ -446,7 +445,7 @@ function assemble_A_TE(cv::CellValues, dh::DofHandler, A::SparseMatrixCSC, ϵ::F
 end
 
 function assemble_B_TE(cv::CellValues, dh::DofHandler, B::SparseMatrixCSC)
-     # Preallocate the local matrix
+    # Preallocate the local matrix
     n_basefuncs = getnbasefunctions(cv)
     Be = zeros(ComplexF64, n_basefuncs, n_basefuncs)
 

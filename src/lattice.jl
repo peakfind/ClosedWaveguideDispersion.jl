@@ -10,7 +10,7 @@
      |
      ---------> (x, 0) 
 """
-struct SquareLattice{T} 
+struct SquareLattice{T}
     x::T
     y::T
 end
@@ -33,8 +33,8 @@ struct IrreducibleBrillouin{T}
     M::SVector{2, T}
 end
 
-function IrreducibleBrillouin(sl::SquareLattice{T}) where{T}
-    π_x = T(π) / sl.x 
+function IrreducibleBrillouin(sl::SquareLattice{T}) where {T}
+    π_x = T(π) / sl.x
     π_y = T(π) / sl.y
 
     Γ = @SVector zeros(T, 2)
@@ -72,16 +72,16 @@ triangle for square lattices): Γ -> X -> M -> Γ.
 - `para`: a real number in ``[0, 1]``. which is the parameter corresponding 
           to the points in `dibz`. We need `para` when we plot the band structure
 """
-function get_discrete_irreducibleBrillouin(ibz::IrreducibleBrillouin{T}, n::Int64) where{T}
+function get_discrete_irreducibleBrillouin(ibz::IrreducibleBrillouin{T}, n::Int64) where {T}
     n > 0 || throw(ArgumentError("n must be positive"))
-    
+
     # Total number of the points along the Γ -> X -> M -> Γ
     N = 3 * n + 4
-    
+
     # Preallocate
     dibz = Vector{SVector{2, T}}(undef, N)
     para = Vector{T}(undef, N)
-    
+
     # Precompute some constants
     π_x = ibz.X[1]
     π_y = ibz.M[2]
@@ -91,11 +91,11 @@ function get_discrete_irreducibleBrillouin(ibz::IrreducibleBrillouin{T}, n::Int6
 
     # Perimeter of the Irreducible Brillouin zone
     l = π_x + π_y + d
-    
+
     # Γ -> X (except X)
     dibz[1] = ibz.Γ
     para[1] = zero(T)
-    
+
     for i in 2:(n + 1)
         tx = (i - 1) * hx
         p = SVector{2, T}(tx, zero(T))
@@ -105,19 +105,19 @@ function get_discrete_irreducibleBrillouin(ibz::IrreducibleBrillouin{T}, n::Int6
 
     # X -> M (except M)
     dibz[n + 2] = ibz.X
-    para[n + 2] = π_x / l 
-    
+    para[n + 2] = π_x / l
+
     for i in (n + 3):(2 * n + 2)
         ty = (i - n - 2) * hy
         p = SVector{2, T}(π_x, ty)
         dibz[i] = p
         para[i] = (ty + π_x) / l
     end
-    
+
     # M -> Γ
     dibz[2 * n + 3] = ibz.M
     para[2 * n + 3] = (π_x + π_y) / l
-    
+
     for i in (2 * n + 4):(3 * n + 3)
         tx = (N - i) * hx
         ty = (N - i) * hy
@@ -126,8 +126,8 @@ function get_discrete_irreducibleBrillouin(ibz::IrreducibleBrillouin{T}, n::Int6
         dibz[i] = p
         para[i] = (π_x + π_y + td) / l
     end
-    
-    dibz[N] = ibz.Γ 
+
+    dibz[N] = ibz.Γ
     para[N] = one(T)
 
     return dibz, para
