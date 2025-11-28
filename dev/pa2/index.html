@@ -96,26 +96,26 @@ cst = my_bdcs(dh, period=p)
 # Allocate the matrices
 A = allocate_matries(dh, cst)
 B = allocate_matries(dh, cst)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">425×425 SparseArrays.SparseMatrixCSC{ComplexF64, Int64} with 2819 stored entries:
-⎡⠻⢆⡄⢸⣦⠘⡠⠀⠈⠀⠁⠑⠀⠂⠀⠀⠼⠀⡀⠐⠀⣀⠁⢀⠀⠆⠀⠀⠀⡠⠀⢤⠆⠂⢀⠘⠃⠀⠀⠀⎤
-⎢⣀⣉⣿⢟⠸⣱⡀⠠⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠧⡀⠁⣾⠰⠉⠀⠁⠀⠀⠀⠀⢈⠉⠇⡸⠈⣆⠢⠀⠠⠀⎥
-⎢⣈⠛⢖⣢⡵⣯⡵⠀⣤⠀⡀⡨⠅⡀⠀⠀⠂⠀⢂⠀⠠⡢⢠⡤⠀⠂⢀⠀⠀⡍⠀⢀⠀⠀⠼⢨⣀⠀⠀⠐⎥
-⎢⠀⠊⠀⡈⠑⠋⠿⣧⡈⠇⠀⠁⠀⠀⠀⠀⠢⠀⠀⠃⠀⡀⣨⠠⠀⠠⡸⠀⣠⡀⠐⡃⢂⣠⠸⡘⠁⠀⠀⡐⎥
-⎢⠂⠀⠀⠐⠀⠛⠦⠌⡿⣯⢺⠂⣩⢀⣸⡀⠀⠀⠰⠂⠀⡄⠂⠐⠀⠐⠁⠀⠀⠉⠂⠁⠄⠀⡀⠈⠀⡀⢁⠀⎥
-⎢⢅⠀⠀⠀⡀⡨⠄⠀⠺⠒⠻⣦⣰⡄⣀⡣⠤⡅⢤⡈⡁⠂⠀⠀⣀⡁⠘⠀⠀⠆⡀⠂⠀⠀⡂⠀⠎⠁⠂⠀⎥
-⎢⠠⠀⠀⠀⠁⠡⠀⠀⠃⢚⠐⠾⠱⣦⡜⠦⠀⠆⡄⣠⠀⡄⠀⠀⡈⠈⠀⠁⠈⠆⠀⠂⠀⠀⠀⠀⠀⡘⢁⠀⎥
-⎢⠀⠀⠀⠀⠀⠀⠀⠀⠒⠺⠤⡸⠲⡍⣱⣾⢀⡄⠉⠱⢅⠁⠂⠀⠂⠀⠀⠀⠀⡀⣠⠀⡀⠀⢀⠀⠀⠲⣜⠀⎥
-⎢⠒⠃⠀⠀⠈⠀⠈⠂⠀⠀⠄⠧⠠⠄⠀⠴⠟⣥⢠⡤⡶⠄⠒⡄⣀⠄⠈⠜⠅⠄⠀⠀⠆⠀⣵⠀⢠⢃⠴⣀⎥
-⎢⢀⠈⠉⠣⠈⠐⠤⠀⠰⠂⡀⠳⠀⣩⢇⡀⠀⡶⠿⢇⡂⠊⠴⢘⡖⣂⡀⠀⠀⠀⡂⢀⠀⢀⠐⠠⡈⡠⢿⠨⎥
-⎢⠀⢠⣡⣤⠠⡢⠀⠠⠀⠤⠡⠈⠀⠤⠅⠑⠘⠏⡨⠈⣻⣾⣱⣵⢐⢐⢖⡃⡐⡂⠁⠔⢍⠀⠈⢀⠠⠀⠠⠀⎥
-⎢⠁⢀⡔⠂⠀⡶⠂⡚⢈⠀⠀⠀⠀⠀⠈⠀⠘⠤⣐⢃⢕⣾⢟⢕⠥⣀⣀⠂⢀⠀⠀⠀⠅⠄⠰⠘⠢⠁⠀⠧⎥
-⎢⠠⠄⠄⠀⠠⠀⠀⡀⢀⠀⠄⠸⡂⠈⠈⠀⠀⠜⠸⢩⢐⢐⠁⢣⣻⢞⣗⡂⣶⠀⡂⠀⢄⢀⠾⠤⠠⠙⠌⠁⎥
-⎢⠀⠀⠀⠀⠀⠐⠒⠊⠁⠀⠒⠀⠄⠀⠀⠀⣂⠄⠀⠈⠼⠱⠠⠘⠹⠹⠵⣧⡶⠊⢄⠐⠀⠈⠃⠠⠂⢀⣄⠕⎥
-⎢⠀⡠⠀⠀⡄⠤⠀⠺⡄⠀⠠⠄⠢⠄⠀⠠⠁⠅⠀⠀⠰⠨⠀⠐⠘⠛⡸⠋⠻⢆⣈⡡⠈⠘⠄⢇⢈⢙⠀⠀⎥
-⎢⠀⣄⡆⠐⠀⢀⠴⠠⠌⠀⠠⠈⠠⠀⠀⠚⠀⠀⠈⢈⢁⠄⠀⠀⠈⠈⢀⠑⠆⡸⠻⣦⠀⢀⠐⠊⡐⠘⠁⠀⎥
-⎢⠨⠁⣉⡡⠀⠀⠈⣰⠀⠁⠀⠀⠀⠀⠀⠈⠈⠁⠀⢀⠃⠑⠁⠅⠀⢑⡀⠀⣂⠀⠀⢀⢿⢗⣁⡰⢀⣂⠈⠄⎥
-⎢⣀⠐⠢⢤⡒⣃⣒⠢⡀⠈⠈⠈⠀⠀⠀⠐⠑⠛⠐⡀⠂⢀⣐⠂⠚⡇⠉⡀⠤⢅⡰⠀⢁⡸⠛⢄⠾⡑⡈⣉⎥
-⎢⠉⠀⠈⠂⠀⠘⠁⠀⠀⠠⠎⠁⣀⠠⢠⡀⠤⢒⠂⡨⠀⠂⠌⠂⣄⠂⠈⢀⣆⢐⣐⠈⠠⢰⢞⠣⢱⣶⡰⠔⎥
-⎣⠀⠀⠀⠂⢀⠀⢀⠠⠁⠐⠈⠀⠁⠐⠒⠙⠐⢣⡛⡓⠀⠂⠤⡄⠆⠁⢄⠝⠀⠀⠁⠀⠂⠄⡆⢨⢐⠎⠛⣤⎦</code></pre><p>We discretize the Brillouin zone and calculate the dispersion diagram.</p><pre><code class="language-julia hljs">bz = collect(range(-π/p, 2π/p, N))
+⎡⠻⢆⡄⢸⣦⠘⡠⠀⠈⠀⠁⠑⠀⠂⠀⠀⠼⠀⡀⠀⠂⣀⠁⢀⠀⠆⠀⠀⠀⡄⠠⢠⠆⠐⢀⠘⠃⠀⠀⠀⎤
+⎢⣀⣉⣿⢟⠸⣱⡀⠠⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠧⡈⠀⣾⠰⠉⠀⠁⠀⠀⠀⠀⢈⠈⠇⢸⠈⣆⠢⠀⠠⠀⎥
+⎢⣈⠛⢖⣢⡵⣯⡵⠀⣤⠀⡀⡨⠅⡀⠀⠀⠂⠀⢂⠀⠠⡢⢠⡤⠀⠂⢀⠀⠀⠅⡀⡀⠀⠀⠼⢨⣀⠀⠀⠐⎥
+⎢⠀⠊⠀⡈⠑⠋⠿⣧⡈⠇⠀⠁⠀⠀⠀⠀⠢⠀⠀⠃⠀⡀⣨⠠⠀⠠⡸⠀⣠⡀⠀⢃⢂⣤⠸⡘⠁⠀⠀⡐⎥
+⎢⠂⠀⠀⠐⠀⠛⠦⠌⡿⣯⢺⠂⣩⢀⣸⡀⠀⠀⠰⠂⠀⡄⠂⠐⠀⠐⠁⠀⠀⠑⠀⠈⠄⠀⡀⠈⠀⡀⢁⠀⎥
+⎢⢅⠀⠀⠀⡀⡨⠄⠀⠺⠒⠻⣦⣰⡄⣀⡣⠤⡅⢤⡈⡁⠂⠀⠀⣀⡁⠘⠀⠀⠆⠄⡂⠀⠀⡂⠀⠎⠁⠂⠀⎥
+⎢⠠⠀⠀⠀⠁⠡⠀⠀⠃⢚⠐⠾⠱⣦⡜⠦⠀⠆⡄⣠⠀⡄⠀⠀⡈⠈⠀⠁⠈⠂⠄⠂⠀⠀⠀⠀⠀⡘⢁⠀⎥
+⎢⠀⠀⠀⠀⠀⠀⠀⠀⠒⠺⠤⡸⠲⡍⣱⣾⢀⡄⠉⠱⢅⠁⠂⠀⠂⠀⠀⠀⠀⢀⣠⠀⡀⠀⢀⠀⠀⠲⣜⠀⎥
+⎢⠒⠃⠀⠀⠈⠀⠈⠂⠀⠀⠄⠧⠠⠄⠀⠴⠟⣥⢠⣤⠶⠄⠒⡄⣀⠄⠈⠜⠅⠄⠀⠀⠆⠀⣵⠀⢠⢃⠴⣀⎥
+⎢⠀⠈⡉⠣⠈⠐⠤⠀⠰⠂⡀⠳⠀⣩⢇⡀⠀⣶⠿⢇⡂⠊⠴⣘⡖⢂⡀⠀⠀⢀⠀⡂⠀⡀⢐⠠⡈⡠⢿⠨⎥
+⎢⠈⢠⣠⣤⠠⡢⠀⠠⠀⠤⠡⠈⠀⠤⠅⠑⠘⠇⡨⠈⣻⣾⣱⣼⢐⢑⢖⡃⡐⡊⠀⠕⢍⠀⠀⢀⠡⠀⠠⠀⎥
+⎢⠁⢀⡔⠂⠀⡶⠂⡚⢈⠀⠀⠀⠀⠀⠈⠀⠘⠤⣐⢣⣑⣾⢟⢕⠥⣀⣀⠂⢀⠀⠀⠀⠅⠄⠰⠘⠢⠁⠀⠧⎥
+⎢⠠⠄⠄⠀⠠⠀⠀⡀⢀⠀⠄⠸⡂⠈⠈⠀⠀⠜⠸⢉⢔⢐⠁⢣⣻⢞⣗⡂⣶⢀⠀⠂⢄⣀⠾⠤⠠⠙⠌⠁⎥
+⎢⠀⠀⠀⠀⠀⠐⠒⠊⠁⠀⠒⠀⠄⠀⠀⠀⣂⠄⠀⠈⠼⠱⠠⠘⠹⠹⠵⣧⡶⠣⡀⠐⠀⠉⠃⠠⠂⢀⣄⠕⎥
+⎢⠀⠤⠀⠀⠄⠄⠀⠺⢄⠀⠠⠄⠢⠀⠀⢀⠁⠅⠀⢀⡰⠨⠀⠐⠘⢛⠼⡋⠻⣦⣩⡨⠈⠘⠄⢧⠈⠙⡀⠀⎥
+⎢⠀⣂⡂⠐⠀⠨⠤⢀⡀⠀⠠⠡⠠⠁⠀⠚⠀⠀⠠⠠⢄⠄⠀⠀⠠⠀⢀⠈⡃⡺⢟⢕⠀⢀⠠⠂⠬⠘⠀⠀⎥
+⎢⢈⠁⣉⣁⠀⠀⠈⣴⠀⠁⠀⠀⠀⠀⠀⠈⠈⠁⠀⠠⠃⠑⠁⠅⠀⢱⡄⠀⣂⠀⠀⢀⣿⣿⣁⣐⢀⣂⠈⠄⎥
+⎢⣀⠐⠢⢤⡒⣃⣒⠢⡀⠈⠈⠈⠀⠀⠀⠐⠑⠛⠐⡐⠀⢀⣐⠂⠚⡇⠉⡀⠤⣅⠠⠂⢁⢸⠛⢄⠾⡑⡈⣉⎥
+⎢⠉⠀⠈⠂⠀⠘⠁⠀⠀⠠⠎⠁⣀⠠⢠⡀⠤⢒⠂⡨⠁⠂⠌⠂⣄⠂⠈⢀⣆⠀⣂⠃⠠⢰⢞⠣⢱⣶⡰⠔⎥
+⎣⠀⠀⠀⠂⢀⠀⢀⠠⠁⠐⠈⠀⠁⠐⠒⠙⠐⢣⡛⡓⠀⠂⠤⡄⠆⠁⢄⠝⠀⠈⠀⠀⠂⠄⡆⢨⢐⠎⠛⣤⎦</code></pre><p>We discretize the Brillouin zone and calculate the dispersion diagram.</p><pre><code class="language-julia hljs">bz = collect(range(-π/p, 2π/p, N))
 μ = calc_diagram(cv, dh, cst, A, B, n, bz, nevs=5)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">150×5 Matrix{Float64}:
  27.0388  30.6954  48.0029  48.0246  67.2005
  27.0229  30.6755  48.0172  48.0494  67.1889
@@ -242,4 +242,4 @@ B = allocate_matries(dh, cst)
 
 bz = collect(range(-π/p, 2π/p, N))
 μ = calc_diagram(cv, dh, cst, A, B, n, bz, nevs=5)
-plot_diagram(bz, μ, period=p)</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../zhang_case2/">« Inhomogeneous case</a><a class="docs-footer-nextpage" href="../pa3/">PA-Three »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Monday 13 October 2025 08:18">Monday 13 October 2025</span>. Using Julia version 1.12.0.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+plot_diagram(bz, μ, period=p)</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../zhang_case2/">« Inhomogeneous case</a><a class="docs-footer-nextpage" href="../pa3/">PA-Three »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Friday 28 November 2025 03:45">Friday 28 November 2025</span>. Using Julia version 1.12.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
