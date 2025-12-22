@@ -137,7 +137,9 @@ end
 
 Assemble the matrix ``\\mathbf{A}`` which is given by the sesquilinear form 
 
-``\\int \\nabla u \\cdot \\nabla \\bar{v} - 2i \\alpha \\partial_{1} u \\bar{v} + \\alpha^{2} u \\bar{v} dx.``
+```math
+\\int \\nabla u \\cdot \\nabla \\bar{v} - 2i \\alpha \\partial_{1} u \\bar{v} + \\alpha^{2} u \\bar{v} dx.
+```
 """
 function assemble_A(cv::CellValues, dh::DofHandler, A::SparseMatrixCSC, α::Float64)
     # Preallocate the local matrix
@@ -186,7 +188,9 @@ end
 
 Assemble the matrix ``\\mathbf{B}`` which is given by the sesquilinear form 
 
-``\\int n(x_{2}, x_{2}) u \\bar{v} dx.``
+```math
+\\int n(x_{2}, x_{2}) u \\bar{v} dx.
+```
 """
 function assemble_B(cv::CellValues, dh::DofHandler, B::SparseMatrixCSC, n::Function)
     # Preallocate the local matrix

@@ -7,13 +7,17 @@
 Compute the dispersion diagram for a 2D periodic closed waveguide. The propagation of the 
 wave in this waveguide is described by
 
-``\\Delta u + k^2 n(x_{1}, x_{2})u = 0.``
+```math
+\\Delta u + k^2 n(x_{1}, x_{2})u = 0.
+```
 
 To get the dispersion diagram, We need to solve generalized linear eigenvalue problems 
 parametered by ``\\alpha`` in the Brillouin zone `bz` which are derived by Finite element 
 method. The generalized linear eigenvalue problems come from 
 
-``\\int \\nabla u \\cdot \\nabla \\bar{v} - 2i \\alpha \\partial_{1} u \\bar{v} + \\alpha^{2} u \\bar{v} dx = k^{2} \\int n(x_{2}, x_{2}) u \\bar{v} dx.``
+```math
+\\int \\nabla u \\cdot \\nabla \\bar{v} - 2i \\alpha \\partial_{1} u \\bar{v} + \\alpha^{2} u \\bar{v} dx = k^{2} \\int n(x_{2}, x_{2}) u \\bar{v} dx.
+```
 
 # Arguments
 

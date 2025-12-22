@@ -2,13 +2,14 @@
     SquareLattice{T}
 
 2D Square lattice described by x and y.
-    
+```   
 (0, y)
      ^ 
      |
      |
      |
      ---------> (x, 0) 
+```
 """
 struct SquareLattice{T}
     x::T
@@ -23,9 +24,9 @@ vertices: Γ, X, and M.
 
 # Fields
 
-- `Γ`: Center of the Brillouin zone (0, 0)
-- `X`: (π/x, 0)
-- `M`: (π/x, π/y)
+- `Γ`: Center of the Brillouin zone ``(0, 0)``
+- `X`: ``(\\pi / x, 0)``
+- `M`: ``(\\pi / x, \\pi / y)``
 """
 struct IrreducibleBrillouin{T}
     Γ::SVector{2, T}
